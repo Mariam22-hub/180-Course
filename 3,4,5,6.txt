@@ -1,0 +1,17 @@
+3. INSERT INTO 180market(product_name, product_value, product_quantity, record_date) VALUES
+('Pepsi', 5.00, 20, '2022-03-21'),
+('Coca-Cola', 4.50, 15, '2022-03-22'),
+('Snicker', 1.99, 50, '2022-03-23');
+
+4. INSERT INTO 180sells (product_id, sells_quantity, record_date) VALUES
+(1, 3, '2022-03-21'),
+(2, 5, '2022-03-22'),
+(3, 10, '2022-03-23');
+
+5. SELECT 180market.id, 180market.product_name, 180market.product_value, 180market.product_quantity, 180sells.sells_quantity, 180sells.recorded_date
+FROM products
+LEFT JOIN sells ON products.id = sells.product_id;
+
+6. SELECT product_id, SUM(sells_quantity) AS total_quantity
+FROM 180sells
+GROUP BY product_id;
