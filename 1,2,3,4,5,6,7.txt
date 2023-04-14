@@ -1,0 +1,25 @@
+1. CREATE TABLE `camp_movies`. `thecamp_cinema` ( `id` INT AUTO_INCREMENT PRIMARY KEY, `movie_name` VARCHAR(50) NOT NULL, `movie_length` DECIMAL,
+ `movie_director` VARCHAR(50));
+
+2. CREATE TABLE `camp_movies`.`thecamp_movie_ratings` (`id` INT NULL AUTO_INCREMENT , `movie_id` INT NOT NULL , `movie_review` VARCHAR(255) 
+NOT NULL , `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `thecamp_movie_ratings` ADD CONSTRAINT `ratings-cinema` FOREIGN KEY (`movie_id`) REFERENCES `thecamp_cinema`(`movie_id`) 
+ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+3. CREATE TABLE `camp_movies`.`thecamp_actors` (`id` INT NULL AUTO_INCREMENT , `movie_id` INT NOT NULL , 
+`actor_name` VARCHAR(60) NOT NULL , `actor_salary` INT NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+ALTER TABLE `thecamp_actors` ADD CONSTRAINT `actors-cinema` FOREIGN KEY (`movie_id`) REFERENCES `thecamp_cinema`(`movie_id`) 
+ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+4. SELECT c.movie_id, c.movie_name, r.movie_review, r.date FROM thecamp_cinema c JOIN thecamp_movie_ratings r 
+ON c.movie_id = r.movie_id;
+
+5. SELECT c.movie_id, c.movie_name, a.actor_name, a.actor_salary FROM thecamp_cinema c JOIN thecamp_actors a 
+ON c.movie_id = a.movie_id;
+
+6. SELECT movie_id, COUNT(*) AS total_reviews FROM thecamp_movie_ratings GROUP BY movie_id;
+
+7. SELECT c.movie_id, c.movie_name, AVG(a.actor_salary) AS avg_salary FROM thecamp_cinema c JOIN thecamp_actors a 
+ON c.movie_id = a.movie_id GROUP BY c.movie_id, c.movie_name;
